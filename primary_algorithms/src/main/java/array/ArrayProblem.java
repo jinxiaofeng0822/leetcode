@@ -1,7 +1,8 @@
 package array;
 
-import java.util.ArrayList;
-import java.util.List;
+import util.JxfUtil;
+
+import java.util.Arrays;
 
 /**
  * @author Jin Xiaofeng
@@ -43,36 +44,23 @@ public class ArrayProblem {
         if (nums.length == 0 || nums.length == 1) {
             return nums.length;
         }
-        List<Integer> list = new ArrayList<Integer>();
-
-        for (int i = 0; i < nums.length; i++) {
-            if(list.size()==0){
-                list.add(nums[i]);
-            }else{
-                if(nums[i]>list.get(list.size()-1)){
-                    list.add(nums[i]);
-                }
+        int point = 0;
+        for (int i = 1; i < nums.length; i++) {
+            if (nums[i] > nums[point]) {
+                nums[++point] = nums[i];
             }
         }
-        for (int i = 0; i < list.size(); i++) {
-            nums[i]=list.get(i);
-        }
-        return list.size();
+        return point + 1;
     }
 
 
     public static void main(String[] args) {
         ArrayProblem p = new ArrayProblem();
-        int[] a = {0, 0, 1, 1, 1, 2, 2, 3, 3, 4};
-        System.out.print("初始数组过后，");
-        for (int t :a) {
-            System.out.print(t+",");
-        }
-        System.out.println();
+        int[] a = {0, 0, 1, 1, 1, 2, 2, 3, 3, 4,9,9,9,9,9,9};
+        System.out.println("初始数组过后，" + Arrays.toString(a));
+
         System.out.println("返回的数字是：" + p.removeDuplicates(a));
-        System.out.print("完成以后，");
-        for (int t :a) {
-            System.out.print(t+",");
-        }
+        System.out.println("完成以后，" + Arrays.toString(a));
+        JxfUtil.print();
     }
 }
