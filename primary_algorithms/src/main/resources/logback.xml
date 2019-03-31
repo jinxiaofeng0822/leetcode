@@ -3,7 +3,7 @@
     <contextName>logback</contextName>
 
     <property name="CONSOLE_LOG_PATTERN"
-              value="%yellow(%date{HH:mm:ss}) |%highlight(%-5level) |%blue(%thread) |%blue(%file:%line) |%green(%logger) |%cyan(%msg%n)"/>
+              value="%yellow(%date{HH:mm:ss}) |%highlight(%-5level) |%blue(%thread) |%blue(%file:%line)|%cyan(%msg%n)"/>
 
     <!-- definition of appender STDOUT -->
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">

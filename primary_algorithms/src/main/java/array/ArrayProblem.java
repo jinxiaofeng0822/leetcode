@@ -346,6 +346,19 @@ public class ArrayProblem {
         }
     }
 
+    /**
+     * 给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那 两个 整数，
+     * 并返回他们的数组下标。
+     * 你可以假设每种输入只会对应一个答案。但是，你不能重复利用这个数组中同样的元素。
+     *
+     * 示例:
+     * 给定 nums = [2, 7, 11, 15], target = 9
+     * 因为 nums[0] + nums[1] = 2 + 7 = 9
+     * 所以返回 [0, 1]
+     * @param nums
+     * @param target
+     * @return
+     */
     public int[] twoSum(int[] nums, int target) {
 //        方法一：两遍哈希表
 //        为了对运行时间复杂度进行优化，我们需要一种更有效的方法来检查数组
@@ -391,9 +404,9 @@ public class ArrayProblem {
 
     public boolean isValidSudoku(char[][] board) {
         // init data
-        HashMap<Integer, Integer>[] rows = new HashMap[9];
-        HashMap<Integer, Integer>[] columns = new HashMap[9];
-        HashMap<Integer, Integer>[] boxes = new HashMap[9];
+        HashMap<Integer, Integer> [] rows = new HashMap[9];
+        HashMap<Integer, Integer> [] columns = new HashMap[9];
+        HashMap<Integer, Integer> [] boxes = new HashMap[9];
         for (int i = 0; i < 9; i++) {
             rows[i] = new HashMap<>();
             columns[i] = new HashMap<>();
@@ -403,21 +416,35 @@ public class ArrayProblem {
         // validate a board
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
-                char c = board[i][j];
-                if (c != '.') {
-                    int n = c;
-                    int boxIndex = 0;
-                    rows[i].put(n, rows[i].getOrDefault(i, 0) + 1);
-                    columns[i].put(n, columns[i].getOrDefault(i, 0) + 1);
+                char num = board[i][j];
+                if (num != '.') {
+                    int n = (int)num;
+                    int box_index = (i / 3 ) * 3 + j / 3;
 
+                    // keep the current cell value
+                    rows[i].put(n, rows[i].getOrDefault(n, 0) + 1);
+                    columns[j].put(n, columns[j].getOrDefault(n, 0) + 1);
+                    boxes[box_index].put(n, boxes[box_index].getOrDefault(n, 0) + 1);
+
+                    // check if this value has been already seen before
+                    if (rows[i].get(n) > 1 || columns[j].get(n) > 1 || boxes[box_index].get(n) > 1)
+                        return false;
                 }
             }
         }
+
         return true;
     }
 
+    public void rotate(int[][] matrix) {
+        //TODO 旋转图像
+    }
     public static void main(String[] args) {
-        log.info("ffffffff");
-        System.out.println("jieshu");
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                int box_index = (i / 3 ) * 3 + j / 3;
+                log.info("第{}行,第{}列的数字是：{}",i,j,box_index);
+            }
+        }
     }
 }
