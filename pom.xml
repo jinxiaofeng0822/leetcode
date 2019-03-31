@@ -40,7 +40,7 @@
             <version>${junit.jupiter.version}</version>
             <scope>test</scope>
         </dependency>
-        <!--
+
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
@@ -58,7 +58,6 @@
             <artifactId>logback-access</artifactId>
             <version>1.2.3</version>
         </dependency>
-        -->
     </dependencies>
 
     <build>

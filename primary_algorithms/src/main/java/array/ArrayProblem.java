@@ -1,13 +1,15 @@
 package array;
 
-import java.math.BigDecimal;
-import java.text.DecimalFormat;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.*;
 
 /**
  * @author Jin Xiaofeng
  */
 public class ArrayProblem {
+    private static final Logger log = LoggerFactory.getLogger(ArrayProblem.class);
 
     /**
      * 从排序数组中删除重复项
@@ -274,40 +276,41 @@ public class ArrayProblem {
      * 给定一个由整数组成的非空数组所表示的非负整数，在该数的基础上加一。
      * 最高位数字存放在数组的首位， 数组中每个元素只存储一个数字。
      * 你可以假设除了整数 0 之外，这个整数不会以零开头。
-     *
+     * <p>
      * 示例 1:
      * 输入: [1,2,3]
      * 输出: [1,2,4]
      * 解释: 输入数组表示数字 123。
-     *
+     * <p>
      * 示例 2:
      * 输入: [4,3,2,1]
      * 输出: [4,3,2,2]
      * 解释: 输入数组表示数字 4321。
+     *
      * @param digits
      * @return
      */
     public int[] plusOne(int[] digits) {
         for (int i = digits.length - 1; i >= 0; i--) {
-            if(i==0){
-                if(digits[0]==9){
-                    int[] result = new int[digits.length+1];
-                    result[0]=1;
-                    result[1]=0;
+            if (i == 0) {
+                if (digits[0] == 9) {
+                    int[] result = new int[digits.length + 1];
+                    result[0] = 1;
+                    result[1] = 0;
                     for (int j = 1; j < digits.length; j++) {
-                        result[j+1]=digits[j];
+                        result[j + 1] = digits[j];
                     }
                     return result;
-                }else{
+                } else {
                     digits[0]++;
                     return digits;
                 }
             }
-            if(digits[i]!=9){
+            if (digits[i] != 9) {
                 digits[i]++;
                 break;
-            }else{
-                digits[i]=0;
+            } else {
+                digits[i] = 0;
             }
         }
         return digits;
@@ -315,30 +318,31 @@ public class ArrayProblem {
 
     /**
      * 给定一个数组 nums，编写一个函数将所有 0 移动到数组的末尾，同时保持非零元素的相对顺序。
-     *
+     * <p>
      * 示例:
      * 输入: [0,1,0,3,12]
      * 输出: [1,3,12,0,0]
-     *
+     * <p>
      * 说明:
      * 必须在原数组上操作，不能拷贝额外的数组。
      * 尽量减少操作次数。
+     *
      * @param nums
      */
     public void moveZeroes(int[] nums) {
-        int fast=0;
-        int slow=0;
-        while (fast<nums.length){
-            if(nums[fast]!=0){
-                nums[slow]=nums[fast];
+        int fast = 0;
+        int slow = 0;
+        while (fast < nums.length) {
+            if (nums[fast] != 0) {
+                nums[slow] = nums[fast];
                 fast++;
                 slow++;
-            }else{
+            } else {
                 fast++;
             }
         }
         for (int i = slow; i < nums.length; i++) {
-            nums[i]=0;
+            nums[i] = 0;
         }
     }
 
@@ -378,17 +382,42 @@ public class ArrayProblem {
         for (int i = 0; i < nums.length; i++) {
             int complement = target - nums[i];
             if (map.containsKey(complement)) {
-                return new int[] { map.get(complement), i };
+                return new int[]{map.get(complement), i};
             }
             map.put(nums[i], i);
         }
         throw new IllegalArgumentException("No two sum solution");
     }
 
+    public boolean isValidSudoku(char[][] board) {
+        // init data
+        HashMap<Integer, Integer>[] rows = new HashMap[9];
+        HashMap<Integer, Integer>[] columns = new HashMap[9];
+        HashMap<Integer, Integer>[] boxes = new HashMap[9];
+        for (int i = 0; i < 9; i++) {
+            rows[i] = new HashMap<>();
+            columns[i] = new HashMap<>();
+            boxes[i] = new HashMap<>();
+        }
+
+        // validate a board
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                char c = board[i][j];
+                if (c != '.') {
+                    int n = c;
+                    int boxIndex = 0;
+                    rows[i].put(n, rows[i].getOrDefault(i, 0) + 1);
+                    columns[i].put(n, columns[i].getOrDefault(i, 0) + 1);
+
+                }
+            }
+        }
+        return true;
+    }
+
     public static void main(String[] args) {
-        ArrayProblem p = new ArrayProblem();
-        int[] a = {6,1,4,5,3,9,0,1,9,5,1,8,6,7,0,5,5,4,3};
-        p.moveZeroes(a);
-        System.out.println("返回的数字是：" + Arrays.toString(a));
+        log.info("ffffffff");
+        System.out.println("jieshu");
     }
 }
