@@ -36,16 +36,63 @@ public class StringProblem {
     }
 
     public int reverse(int x) {
-        return 0;
+        StringBuilder sb = new StringBuilder();
+
+        String maxInt = String.valueOf(Integer.MAX_VALUE);
+        String minInt = String.valueOf(Integer.MIN_VALUE);
+        String strx = String.valueOf(x);
+        if (!strx.startsWith("-")) {
+            if (strx.length() == maxInt.length()) {
+                //需要考虑溢出
+                for (int i = strx.length()-1,j=0; i >=0; i--,j++) {
+                    if(strx.charAt(i)>maxInt.charAt(j)){
+                        return 0;
+                    } else if (strx.charAt(i)<maxInt.charAt(j)) {
+                        break;
+                    }
+                }
+                for (int i = strx.length()-1; i >=0; i--) {
+                    sb.append(strx.charAt(i));
+                }
+                return Integer.valueOf(sb.toString());
+            }else {
+                for (int i = strx.length()-1; i >=0; i--) {
+                    sb.append(strx.charAt(i));
+                }
+                return Integer.valueOf(sb.toString());
+            }
+        }else{
+            strx=strx.substring(1);
+            if (strx.length() == minInt.length()-1) {
+                for (int i = strx.length()-1,j=1; i >=0; i--,j++) {
+                    if(strx.charAt(i)>minInt.charAt(j)){
+                        return 0;
+                    } else if (strx.charAt(i)<minInt.charAt(j)) {
+                        break;
+                    }
+                }
+                for (int i = strx.length()-1; i >=0; i--) {
+                    sb.append(strx.charAt(i));
+                }
+                return -Integer.valueOf(sb.toString());
+            }else {
+                for (int i = strx.length()-1; i >=0; i--) {
+                    sb.append(strx.charAt(i));
+                }
+                return -Integer.valueOf(sb.toString());
+            }
+        }
     }
 
     public static void main(String[] args) {
-        log.info("最大int值：{}",Integer.MAX_VALUE);
-        String s = String.valueOf(Integer.MAX_VALUE);
-        log.info(s);
-//        String m = "2300000000";
-        String m = "123";
-        int mi=Integer.parseInt(m);
-        log.info("{}",mi);
+        StringProblem sp = new StringProblem();
+        System.out.println(Integer.MAX_VALUE);
+
+//        int i = 2147483647;
+        int i = -2147483412;
+
+        int r =sp.reverse(i);
+        System.out.println(r);
+
     }
 }
