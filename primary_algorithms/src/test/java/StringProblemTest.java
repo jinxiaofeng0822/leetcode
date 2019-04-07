@@ -21,4 +21,32 @@ public class StringProblemTest {
         log.info("翻转过后的数组为：{}", Arrays.toString(c));
         Assertions.assertArrayEquals(ex,c);
     }
+
+    @Test
+    void reverseTest(){
+        int x = 1234;
+        int y = sp.reverse(x);
+        Assertions.assertEquals(4321,y);
+    }
+
+    @Test
+    void firstUniqCharTest(){
+        String s = "leetcode";
+        int i = sp.firstUniqChar(s);
+        Assertions.assertEquals(0,i);
+    }
+
+    @Test
+    void isAnagramTest(){
+        String s = "anagram", t = "nagaram";
+        boolean result = sp.isAnagram(s,t);
+        Assertions.assertEquals(true,result);
+    }
+
+    @Test
+    void isPalindrome(){
+        String s = "0P";
+        boolean result = sp.isPalindrome(s);
+        Assertions.assertEquals(false,result);
+    }
 }
