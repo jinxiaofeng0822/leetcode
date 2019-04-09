@@ -221,6 +221,12 @@ public class StringProblem {
         }
         return true;
     }
+
+    public int myAtoi(String str) {
+        //TODO 字符串转换整数
+        return 0;
+    }
+
     public static void main(String[] args) {
         int a = '0';
         int z = '9';
