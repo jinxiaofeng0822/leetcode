@@ -49,4 +49,15 @@ public class StringProblemTest {
         boolean result = sp.isPalindrome(s);
         Assertions.assertEquals(false,result);
     }
+
+    @Test
+    void myAtoi(){
+//        String s = "2147483648";
+//        int i = sp.myAtoi(s);
+//        Assertions.assertEquals(2147483647,i);
+
+        String s2 = "1";
+        int i2 = sp.myAtoi(s2);
+        Assertions.assertEquals(1,i2);
+    }
 }

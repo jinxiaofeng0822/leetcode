@@ -223,8 +223,85 @@ public class StringProblem {
     }
 
     public int myAtoi(String str) {
-        //TODO 字符串转换整数
-        return 0;
+        //考虑正号
+        //48
+        //57
+        if(str==null){
+            return 0;
+        }
+        str=str.trim();
+        if(str.length()==0){
+            return 0;
+        }
+
+
+        if(str.length()==1&&str.charAt(0)>=48&&str.charAt(0)<=57){
+            return Integer.valueOf(str);
+        }
+
+        String maxInt = String.valueOf(Integer.MAX_VALUE);
+        String minInt = String.valueOf(Integer.MIN_VALUE);
+
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < str.length(); i++) {
+            char c = str.charAt(i);
+            if(i==0){
+                if (c=='-'||(c>=48&&c<=57)) {
+                    sb.append(c);
+                }else{
+                    return 0;
+                }
+            }else{
+                if (c >= 48 && c <= 57) {
+                    sb.append(c);
+                }else{
+                    break;
+                }
+            }
+        }
+
+        if (sb.length()==0){
+            return 0;
+        }else if(sb.length()==1&&sb.charAt(0)=='-'){
+            return 0;
+        }
+
+        boolean positive = true;
+        if(sb.charAt(0)=='-'){
+            positive=false;
+        }
+
+        //2147483647
+        //-2147483648
+        if (positive) {
+            if(sb.length()>maxInt.length()){
+                return Integer.MAX_VALUE;
+            }else if(sb.length()==maxInt.length()){
+                //需要考虑溢出
+                for (int i = 0; i <sb.length(); i++) {
+                    if (sb.charAt(i) > maxInt.charAt(i)) {
+                        return Integer.MAX_VALUE;
+                    }
+                }
+                return Integer.valueOf(sb.toString());
+            }else{
+                return Integer.valueOf(sb.toString());
+            }
+        }else{
+            if(sb.length()>minInt.length()){
+                return Integer.MIN_VALUE;
+            }else if(sb.length()==minInt.length()){
+                //需要考虑溢出
+                for (int i = 0; i <sb.length(); i++) {
+                    if (sb.charAt(i) > minInt.charAt(i)) {
+                        return Integer.MIN_VALUE;
+                    }
+                }
+                return Integer.valueOf(sb.toString());
+            }else{
+                return Integer.valueOf(sb.toString());
+            }
+        }
     }
 
     public static void main(String[] args) {
@@ -233,5 +310,7 @@ public class StringProblem {
         System.out.println(a);
         System.out.println(z);
         System.out.println(122-97);
+        System.out.println(Integer.MAX_VALUE);
+        System.out.println(Integer.MIN_VALUE);
     }
 }
