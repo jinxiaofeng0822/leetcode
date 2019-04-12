@@ -52,12 +52,17 @@ public class StringProblemTest {
 
     @Test
     void myAtoi(){
-//        String s = "2147483648";
-//        int i = sp.myAtoi(s);
-//        Assertions.assertEquals(2147483647,i);
+        String s = "2147483648";
+        int i = sp.myAtoi(s);
+        Assertions.assertEquals(2147483647,i);
 
         String s2 = "1";
         int i2 = sp.myAtoi(s2);
         Assertions.assertEquals(1,i2);
+
+        String s3 = "-2147483649";
+        int i3 = sp.myAtoi(s3);
+        Assertions.assertEquals(-2147483648,i3);
+
     }
 }
