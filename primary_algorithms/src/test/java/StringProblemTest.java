@@ -65,4 +65,19 @@ public class StringProblemTest {
         Assertions.assertEquals(-2147483648,i3);
 
     }
+
+    @Test
+    void longestCommonPrefix(){
+        String[] str = {"abc","abc","abc"};
+        String result = sp.longestCommonPrefix(str);
+        Assertions.assertEquals("abc",result);
+
+        String[] str2 = {"abddd","ab123213","ab456456"};
+        String result2 = sp.longestCommonPrefix(str2);
+        Assertions.assertEquals("ab",result2);
+
+        String[] str3 = {"abc","abc",""};
+        String result3 = sp.longestCommonPrefix(str3);
+        Assertions.assertEquals("",result3);
+    }
 }
