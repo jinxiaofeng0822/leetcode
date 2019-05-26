@@ -36,6 +36,34 @@ public class TreeProblem {
         return depth;
     }
 
+    public boolean isValidBST(TreeNode root) {
+        if(root==null){
+            return true;
+        }
+        Stack<TreeNode> stack = new Stack<>();
+        stack.add(root);
+        while (!stack.isEmpty()){
+            TreeNode tn = stack.pop();
+            TreeNode left = tn.left;
+            TreeNode right = tn.right;
+            if(left!=null){
+                if (left.val < tn.val) {
+                    stack.push(left);
+                }else{
+                    return false;
+                }
+            }
+            if(right!=null){
+                if (right.val > tn.val) {
+                    stack.push(right);
+                }else{
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
     public static void main(String[] args) {
         TreeNode t4 = new TreeNode(4,null,null);
         TreeNode t2 = new TreeNode(2,t4,null);
