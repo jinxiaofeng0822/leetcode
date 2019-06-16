@@ -1,8 +1,6 @@
 package tree;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Stack;
+import java.util.*;
 
 /**
  * @author Jin Xiaofeng
@@ -54,34 +52,34 @@ public class TreeProblem {
         }
         ArrayList<Integer> ar = new ArrayList<>();
         Stack<TreeNode> stack = new Stack<>();
-        TreeNode temp=root;
+        TreeNode temp = root;
 
         //中序遍历
         while (temp != null || stack.size() != 0) {
-            while(temp!=null){
+            while (temp != null) {
                 stack.push(temp);
-                temp=temp.left;
+                temp = temp.left;
             }
             if (stack.size() != 0) {
-                temp=stack.pop();
+                temp = stack.pop();
                 ar.add(temp.val);
                 if (temp.right != null) {
-                    temp=temp.right;
-                }else{
-                    temp=null;
+                    temp = temp.right;
+                } else {
+                    temp = null;
                 }
             }
         }
         if (ar.size() == 1) {
             return true;
         }
-        int lastInt=ar.get(0);
+        int lastInt = ar.get(0);
         for (int i = 1; i < ar.size(); i++) {
-            int now=ar.get(i);
-            if(now<=lastInt){
+            int now = ar.get(i);
+            if (now <= lastInt) {
                 return false;
-            }else{
-                lastInt=now;
+            } else {
+                lastInt = now;
             }
         }
         return true;
@@ -90,35 +88,64 @@ public class TreeProblem {
     /**
      * 给定一个二叉树，检查它是否是镜像对称的。
      * 例如，二叉树 [1,2,2,3,4,4,3] 是对称的。
-     *
-     *     1
-     *    / \
-     *   2   2
-     *  / \ / \
+     * <p>
+     * 1
+     * / \
+     * 2   2
+     * / \ / \
      * 3  4 4  3
-     *
+     * <p>
      * 但是下面这个 [1,2,2,null,3,null,3] 则不是镜像对称的:
+     * <p>
+     * 1
+     * / \
+     * 2   2
+     * \   \
+     * 3    3
      *
-     *     1
-     *    / \
-     *   2   2
-     *    \   \
-     *    3    3
      * @param root
      * @return
      */
     public boolean isSymmetric(TreeNode root) {
-        return isMirror(root,root);
+        return isMirror(root, root);
     }
 
-    public boolean isMirror(TreeNode t1,TreeNode t2){
+    public boolean isMirror(TreeNode t1, TreeNode t2) {
         if (t1 == null && t2 == null) {
             return true;
         }
         if (t1 == null || t2 == null) {
             return false;
         }
-        return t1.val==t2.val&&isMirror(t1.left,t2.right)&&isMirror(t1.right,t2.left);
+        return t1.val == t2.val && isMirror(t1.left, t2.right) && isMirror(t1.right, t2.left);
+    }
+
+    public List<List<Integer>> levelOrder(TreeNode root) {
+        List<List<Integer>> levels = new ArrayList<>();
+        if (root == null) {
+            return levels;
+        }
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+        int level=0;
+        while (!queue.isEmpty()){
+            //开始当前层的插入
+            levels.add(new ArrayList<>());
+            int levelLength=queue.size();
+            //得到当前层的数量，再循环将该层加入列表，再将子节点加入队列。
+            for (int i = 0; i < levelLength; i++) {
+                TreeNode t = queue.remove();
+                levels.get(level).add(t.val);
+                if (t.left!=null) {
+                    queue.add(t.left);
+                }
+                if (t.right!=null) {
+                    queue.add(t.right);
+                }
+            }
+            level++;
+        }
+        return levels;
     }
     public static void main(String[] args) {
         TreeNode t4 = new TreeNode(4, null, null);
